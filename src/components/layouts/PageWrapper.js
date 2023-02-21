@@ -13,7 +13,7 @@ import Container from '@mui/material/Container';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { Outlet } from 'react-router-dom';
-import Nav from '../Nav/Nav';
+import Nav from './Nav';
 
 const drawerWidth = 240;
 

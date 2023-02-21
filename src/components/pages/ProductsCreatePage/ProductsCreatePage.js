@@ -13,6 +13,7 @@ import { Box, Container } from '@mui/system';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { AdminRoute, APIRoute } from '../../../const';
+import DescriptionWysiwyg from './DescriptionWysiwyg';
 
 function ProductsCreatePage() {
   const [tags, setTags] = useState([]);
@@ -133,6 +134,10 @@ function ProductsCreatePage() {
                   ))}
                 </Select>
               </FormControl>
+            </Grid>
+
+            <Grid item xs={12}>
+              <DescriptionWysiwyg />
             </Grid>
           </Grid>
         </Box>

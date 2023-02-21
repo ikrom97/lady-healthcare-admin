@@ -3,7 +3,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import MedicationIcon from '@mui/icons-material/Medication';
 import CategoryIcon from '@mui/icons-material/Category';
 import TagIcon from '@mui/icons-material/Tag';
-import { AdminRoute } from "../../../const";
+import { AdminRoute } from "../../const";
 
 function Nav() {
   return (
