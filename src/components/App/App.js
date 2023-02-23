@@ -4,6 +4,7 @@ import PageWrapper from '../layouts/PageWrapper/PageWrapper';
 import ProductsPage from '../pages/ProductsPage/ProductsPage';
 import ProductsShowPage from '../pages/ProductsShowPage/ProductsShowPage';
 import { AdminRoute } from '../../const';
+import CategoriesPage from '../pages/CategoriesPage/CategoriesPage';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path={AdminRoute.ADMIN} element={<Navigate to={AdminRoute.PRODUCTS} />} />
           <Route path={AdminRoute.PRODUCTS} element={<ProductsPage />} />
           <Route path={AdminRoute.PRODUCTS_SHOW} element={<ProductsShowPage />} />
+          <Route path={AdminRoute.CATEGORIES} element={<CategoriesPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

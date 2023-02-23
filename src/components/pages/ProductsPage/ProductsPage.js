@@ -6,6 +6,7 @@ function ProductsPage() {
   return (
     <>
       <Typography component="h1" variant="h4">Все препараты</Typography>
+      
       <Breadcrumbs aria-label="breadcrumb">
         <Link underline="hover" color="inherit" href="/">Сайт</Link>
 
