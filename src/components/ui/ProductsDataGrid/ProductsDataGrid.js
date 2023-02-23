@@ -1,9 +1,8 @@
-import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { AdminRoute, APIRoute, dataGridLocalText } from '../../const';
-import { removeTags } from '../../util';
+import { AdminRoute, APIRoute, dataGridLocalText } from '../../../const';
+import { removeTags } from '../../../util';
 import parse from 'html-react-parser';
 import { Button } from '@mui/material';
 import { generatePath } from 'react-router-dom';
@@ -20,7 +19,10 @@ function ProductsDataGrid() {
     );
 
     isConfirmed && axios.post(APIRoute.PRODUCTS, { IDs: selection })
-      .then(({ data }) => toast.success(data.message))
+      .then(({ data }) => {
+        toast.success(data.message);
+        setRows([...rows.filter((row) => !selection.includes(row.id))]);
+      })
       .catch(({ response }) => toast.error(response.data.message));
   };
 
@@ -30,7 +32,10 @@ function ProductsDataGrid() {
     );
 
     isConfirmed && axios.post(APIRoute.PRODUCTS, { IDs: id })
-      .then(({ data }) => toast.success(data.message))
+      .then(({ data }) => {
+        toast.success(data.message);
+        setRows([...rows.filter((row) => row.id !== id)]);
+      })
       .catch(({ response }) => toast.error(response.data.message));
   };
 
@@ -44,24 +49,12 @@ function ProductsDataGrid() {
     {
       field: 'description',
       headerName: 'Описание',
-      width: 460,
+      width: 432,
     },
     {
       field: 'category',
       headerName: 'Направления',
       width: 200,
-    },
-    {
-      field: 'prescription',
-      headerName: 'Рецептурность',
-      width: 120,
-    },
-    {
-      field: 'views',
-      headerName: 'Посещаемость',
-      type: 'number',
-      width: 120,
-      align: 'left',
     },
     {
       field: 'actions',
@@ -70,7 +63,7 @@ function ProductsDataGrid() {
       renderCell: (params) => (
         <Stack spacing={1} direction="row" alignItems="center">
           <Button
-            href={generatePath(AdminRoute.PRODUCTS_SELECTED, { id: params.row.id })}
+            href={generatePath(AdminRoute.PRODUCTS_SHOW, { id: params.row.id })}
             variant="contained"
             color="warning"
             size="small"
@@ -97,27 +90,26 @@ function ProductsDataGrid() {
           {
             id,
             title,
-            description: parse(removeTags(description)),
-            category: category.title,
-            prescription: prescription.title,
+            description: description && parse(removeTags(description)),
+            category: category?.title,
+            prescription: prescription?.title,
             views,
           }
         )));
       })
-      .catch(({response}) => toast.error(response.data.message));
+      .catch(({ response }) => toast.error(response.data.message));
   }, []);
 
   return (
-    <Box sx={{ height: 631, width: '100%', mt: 2 }}>
-      <Stack spacing={1} direction="row" justifyContent="flex-end" sx={{ mb: 1 }}>
+    <>
+      <Stack direction="row" justifyContent="right" marginBottom={1} spacing={1}>
         <Button
           variant="contained"
           color="success"
-          href={AdminRoute.PRODUCTS_CREATE}
+          href={AdminRoute.PRODUCTS_SHOW}
         >
           Добавить новый препарат
         </Button>
-
         {selection.length > 0 &&
           <Button
             variant="contained"
@@ -130,7 +122,7 @@ function ProductsDataGrid() {
       </Stack>
 
       <DataGrid
-        sx={{ backgroundColor: 'white' }}
+        sx={{ backgroundColor: 'white', height: 631 }}
         rows={rows}
         columns={columns}
         pageSize={10}
@@ -141,7 +133,7 @@ function ProductsDataGrid() {
         onSelectionModelChange={(newSelectionModel) => setSelection(newSelectionModel)}
         localeText={dataGridLocalText}
       />
-    </Box>
+    </>
   );
 }
 

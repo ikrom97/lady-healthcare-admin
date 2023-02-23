@@ -2,15 +2,16 @@ export const AdminRoute = {
   HOME: '/',
   ADMIN: '/admin',
   PRODUCTS: '/admin/products',
-  PRODUCTS_CREATE: '/admin/products/create',
-  PRODUCTS_SELECTED: '/admin/products/:id',
+  PRODUCTS_SHOW: '/admin/products/:id',
   CATEGORIES: '/admin/categories',
-  PRESCRIPTIONS: '/admin/prescriptions',
   TAGS: '/admin/tags',
 };
 
 export const APIRoute = {
   PRODUCTS: 'http://127.0.0.1:8000/api/products',
+  PRODUCTS_SHOW: 'http://127.0.0.1:8000/api/products/:id',
+  PRODUCTS_STORE: 'http://127.0.0.1:8000/api/products-store',
+  PRODUCTS_UPDATE: 'http://127.0.0.1:8000/api/products-update',
   CATEGORIES: 'http://127.0.0.1:8000/api/categories',
   PRESCRIPTIONS: 'http://127.0.0.1:8000/api/prescriptions',
   TAGS: 'http://127.0.0.1:8000/api/tags',

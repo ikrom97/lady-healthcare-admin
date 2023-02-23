@@ -1,6 +1,6 @@
 import { Breadcrumbs, Typography } from '@mui/material';
 import Link from '@mui/material/Link';
-import ProductsDataGrid from '../ui/ProductsDataGrid/ProductsDataGrid';
+import ProductsDataGrid from '../../ui/ProductsDataGrid/ProductsDataGrid';
 
 function ProductsPage() {
   return (
