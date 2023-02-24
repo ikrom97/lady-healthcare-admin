@@ -15,8 +15,10 @@ export const APIRoute = {
   CATEGORIES: 'http://127.0.0.1:8000/api/categories',
   CATEGORIES_STORE: 'http://127.0.0.1:8000/api/categories-store',
   CATEGORIES_UPDATE: 'http://127.0.0.1:8000/api/categories-update',
-  PRESCRIPTIONS: 'http://127.0.0.1:8000/api/prescriptions',
   TAGS: 'http://127.0.0.1:8000/api/tags',
+  TAGS_STORE: 'http://127.0.0.1:8000/api/tags-store',
+  TAGS_UPDATE: 'http://127.0.0.1:8000/api/tags-update',
+  PRESCRIPTIONS: 'http://127.0.0.1:8000/api/prescriptions',
 };
 
 export const dataGridLocalText = {

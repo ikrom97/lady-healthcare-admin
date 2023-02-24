@@ -2,19 +2,19 @@ import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { APIRoute, dataGridLocalText } from '../../../const';
-import { Box, Button, Grid, TextField } from '@mui/material';
+import { Box, Button, Checkbox, Grid, TextField } from '@mui/material';
 import { Stack } from '@mui/system';
 import { toast } from 'react-toastify';
 
-function CategoriesDataGrid() {
+function TagsDataGrid() {
   const [rows, setRows] = useState([]);
 
   const handleDeleteButtonClick = (id, title) => () => {
     const isConfirmed = window.confirm(
-      `Вы уверены что хотите безвозвратно удалить категорию ${title}?`
+      `Вы уверены что хотите безвозвратно удалить тег ${title}?`
     );
 
-    isConfirmed && axios.post(APIRoute.CATEGORIES, { id })
+    isConfirmed && axios.post(APIRoute.TAGS, { id })
       .then(({ data }) => {
         toast.success(data.message);
         setRows([...rows.filter((row) => row.id !== id)]);
@@ -25,24 +25,31 @@ function CategoriesDataGrid() {
   const handleFormSubmit = (evt) => {
     evt.preventDefault();
 
-    axios.post(APIRoute.CATEGORIES_STORE, {
+    axios.post(APIRoute.TAGS_STORE, {
       title: evt.target.title.value,
     })
       .then(({ data }) => {
         toast.success(data.message);
-        setRows([data.category, ...rows])
+        setRows([data.tag, ...rows])
         evt.target.reset();
       })
       .catch((error) => console.log(error));
   };
 
   const handleProcessRowUpdate = (newRow) => {
-    axios.post(APIRoute.CATEGORIES_UPDATE, newRow)
+    axios.post(APIRoute.TAGS_UPDATE, newRow)
       .then(({ data }) => toast.success(data.message))
       .catch((error) => console.log(error));
 
     return newRow;
   }
+
+  const handleCheckboxClick = (tag) => () => {
+    tag.shown = !tag.shown;
+    axios.post(APIRoute.TAGS_UPDATE, tag)
+      .then(({ data }) => toast.success(data.message))
+      .catch((error) => console.log(error));
+  };
 
   const columns = [
     {
@@ -55,8 +62,21 @@ function CategoriesDataGrid() {
     {
       field: 'title',
       headerName: 'Название',
-      width: 400,
+      width: 300,
       editable: true,
+    },
+    {
+      field: 'shown',
+      headerName: 'Показать',
+      width: 100,
+      align: 'center',
+      headerAlign: 'center',
+      renderCell: (params) => (
+        <Checkbox
+          onClick={handleCheckboxClick(params.row)}
+          defaultChecked={params.row.shown ? true : false}
+        />
+      ),
     },
     {
       field: 'actions',
@@ -80,9 +100,9 @@ function CategoriesDataGrid() {
   ];
 
   useEffect(() => {
-    axios.get(APIRoute.CATEGORIES)
+    axios.get(APIRoute.TAGS)
       .then(({ data }) => {
-        setRows(data.map(({ id, title }) => ({ id, title })));
+        setRows(data.map(({ id, title, shown }) => ({ id, title, shown })));
       })
       .catch(({ response }) => toast.error(response.data.message));
   }, []);
@@ -138,4 +158,4 @@ function CategoriesDataGrid() {
   );
 }
 
-export default CategoriesDataGrid;
+export default TagsDataGrid;

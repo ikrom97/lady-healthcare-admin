@@ -5,6 +5,7 @@ import ProductsPage from '../pages/ProductsPage/ProductsPage';
 import ProductsShowPage from '../pages/ProductsShowPage/ProductsShowPage';
 import { AdminRoute } from '../../const';
 import CategoriesPage from '../pages/CategoriesPage/CategoriesPage';
+import TagsPage from '../pages/TagsPage/TagsPage';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path={AdminRoute.PRODUCTS} element={<ProductsPage />} />
           <Route path={AdminRoute.PRODUCTS_SHOW} element={<ProductsShowPage />} />
           <Route path={AdminRoute.CATEGORIES} element={<CategoriesPage />} />
+          <Route path={AdminRoute.TAGS} element={<TagsPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
